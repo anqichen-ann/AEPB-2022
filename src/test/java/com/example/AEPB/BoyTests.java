@@ -1,6 +1,7 @@
 package com.example.AEPB;
 
 import com.example.AEPB.exception.ParkingException;
+import com.example.AEPB.exception.PickUpException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -175,5 +176,25 @@ class BoyTests {
         //then
         assertEquals(carPlateNumber, parkCarPlateNumber);
         assertEquals(0, parkingLotA.getCarList().size());
+    }
+
+    @Test
+    void should_pick_up_failed_when_pick_up_car_given_invalid_ticket_with_wrong_parking_lot_no() {
+        //given
+        ParkingLot parkingLotA = new ParkingLot("A", 1);
+        ParkingLot parkingLotB = new ParkingLot("B", 2);
+        ParkingLot parkingLotC = new ParkingLot("C", 3);
+        String carPlateNumber = "京A12345";
+        List<ParkingLot> parkingLots = Stream.of(parkingLotA, parkingLotB, parkingLotC)
+                .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
+                .collect(Collectors.toList());
+        Boy boy = new Boy(parkingLots);
+        Ticket ticket = new Ticket(carPlateNumber, "wrongParkingLotNo");
+
+        //when
+        PickUpException pickUpException = assertThrows(PickUpException.class, () -> boy.pickUp(ticket));
+
+        //then
+        assertEquals("parking lot is not found", pickUpException.getMessage());
     }
 }
