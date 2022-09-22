@@ -2,6 +2,8 @@ package com.example.AEPB;
 
 import com.example.AEPB.exception.ParkingException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 
 import java.util.Comparator;
 import java.util.List;
@@ -130,5 +132,25 @@ class BoyTests {
 
         //then
         assertEquals("car plate number is duplicated", parkingException.getMessage());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void should_parking_failed_when_parking_given_A_is_not_full_and_car_plate_number_is_empty(String carPlateNumber) {
+        //given
+        ParkingLot parkingLotA = new ParkingLot("A", 1);
+        ParkingLot parkingLotB = new ParkingLot("B", 2);
+        ParkingLot parkingLotC = new ParkingLot("C", 3);
+        Car car = new Car(carPlateNumber);
+        List<ParkingLot> parkingLots = Stream.of(parkingLotA, parkingLotB, parkingLotC)
+                .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
+                .collect(Collectors.toList());
+        Boy boy = new Boy(parkingLots);
+
+        //when
+        ParkingException parkingException = assertThrows(ParkingException.class, () -> boy.parking(car));
+
+        //then
+        assertEquals("vehicle has not car plate number", parkingException.getMessage());
     }
 }
