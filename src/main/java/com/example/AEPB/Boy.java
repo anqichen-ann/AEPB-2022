@@ -22,6 +22,6 @@ public class Boy {
                 return parkingLot;
             }
         }
-        throw new ParkingException("vehicle is full");
+        throw new ParkingException("parking lot is full");
     }
 }
