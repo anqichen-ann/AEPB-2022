@@ -31,4 +31,28 @@ class BoyTests {
         assertEquals(carPlateNumber, ticket.getCarPlateNumber());
         assertEquals("A", ticket.getParkingLotNo());
     }
+
+    @Test
+    void should_parking_in_B_and_get_ticket_when_parking_given_A_is_full_and_B_is_not_full() {
+        //given
+        ParkingLot parkingLotA = new ParkingLot("A", 1);
+        ParkingLot parkingLotB = new ParkingLot("B", 2);
+        ParkingLot parkingLotC = new ParkingLot("C", 3);
+        String carPlateNumber = "京A12345";
+        for (int i = 1; i < 101; i++) {
+            parkingLotA.parking(new Car(carPlateNumber + i));
+        }
+        List<ParkingLot> parkingLots = Stream.of(parkingLotA, parkingLotB, parkingLotC)
+                .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
+                .collect(Collectors.toList());
+        Car car = new Car("京B12345");
+        Boy boy = new Boy(parkingLots);
+
+        //when
+        Ticket ticket = boy.parking(car);
+
+        //then
+        assertEquals("京B12345", ticket.getCarPlateNumber());
+        assertEquals("B", ticket.getParkingLotNo());
+    }
 }
