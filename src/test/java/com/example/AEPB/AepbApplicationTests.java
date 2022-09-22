@@ -33,7 +33,7 @@ class ParkingLotTest {
         String carPlateNumber = "京A2345";
         ParkingLot parkingLot = new ParkingLot();
         for (int i = 1; i < 101; i++) {
-            parkingLot.carList.add(new Car(carPlateNumber + i));
+            parkingLot.parking(new Car(carPlateNumber + i));
         }
         Car car = new Car("京A2345678");
 
@@ -65,7 +65,7 @@ class ParkingLotTest {
         String carPlateNumber = "京A2345";
         Car car = new Car(carPlateNumber);
         ParkingLot parkingLot = new ParkingLot();
-        parkingLot.carList.add(car);
+        parkingLot.parking(car);
 
         //when
         ParkingException parkingException = assertThrows(ParkingException.class, () -> parkingLot.parking(car));
@@ -81,7 +81,7 @@ class ParkingLotTest {
         String parkCarPlateNumber = "京A12345";
         Car car = new Car(parkCarPlateNumber);
         ParkingLot parkingLot = new ParkingLot();
-        parkingLot.carList.add(car);
+        parkingLot.parking(car);
         Ticket ticket = new Ticket(parkCarPlateNumber);
 
         //when
@@ -98,7 +98,7 @@ class ParkingLotTest {
         String parkCarPlateNumber = "京A12345";
         Car car = new Car(parkCarPlateNumber);
         ParkingLot parkingLot = new ParkingLot();
-        parkingLot.carList.add(car);
+        parkingLot.parking(car);
         Ticket ticket = new Ticket(parkCarPlateNumber);
         parkingLot.pickUp(ticket);
 

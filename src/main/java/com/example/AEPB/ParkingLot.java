@@ -11,7 +11,7 @@ public class ParkingLot {
 
     private static final int MAX_PARKING_LOT_CAPACITY = 100;
 
-    public final List<Car> carList = new ArrayList<>();
+    private final List<Car> carList = new ArrayList<>();
 
     public Ticket parking(Car car) {
         car.checkCarPlateNumberValid();
