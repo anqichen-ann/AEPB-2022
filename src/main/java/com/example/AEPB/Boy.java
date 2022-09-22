@@ -1,6 +1,7 @@
 package com.example.AEPB;
 
 import com.example.AEPB.exception.ParkingException;
+import com.example.AEPB.exception.PickUpException;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -28,5 +29,14 @@ public class Boy {
 
     public void checkCarIfExist(Car car) {
         parkingLots.forEach(parkingLot -> parkingLot.checkCarIfExist(car.getCarPlateNumber()));
+    }
+
+    public String pickUp(Ticket ticket) {
+        for (ParkingLot parkingLot : parkingLots) {
+            if (ticket.getParkingLotNo().equals(parkingLot.getParkingLotNo())) {
+                return parkingLot.pickUp(ticket);
+            }
+        }
+        throw new PickUpException("parking lot is not found");
     }
 }

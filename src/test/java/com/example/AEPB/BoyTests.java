@@ -34,6 +34,7 @@ class BoyTests {
         //then
         assertEquals(carPlateNumber, ticket.getCarPlateNumber());
         assertEquals("A", ticket.getParkingLotNo());
+        assertEquals(1, parkingLotA.getCarList().size());
     }
 
     @Test
@@ -152,5 +153,27 @@ class BoyTests {
 
         //then
         assertEquals("vehicle has not car plate number", parkingException.getMessage());
+    }
+
+    @Test
+    void should_leave_success_when_pick_up_car_given_valid_ticket() {
+        //given
+        ParkingLot parkingLotA = new ParkingLot("A", 1);
+        ParkingLot parkingLotB = new ParkingLot("B", 2);
+        ParkingLot parkingLotC = new ParkingLot("C", 3);
+        String carPlateNumber = "京A12345";
+        Car car = new Car(carPlateNumber);
+        List<ParkingLot> parkingLots = Stream.of(parkingLotA, parkingLotB, parkingLotC)
+                .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
+                .collect(Collectors.toList());
+        Boy boy = new Boy(parkingLots);
+        Ticket ticket = boy.parking(car);
+
+        //when
+        String parkCarPlateNumber = boy.pickUp(ticket);
+
+        //then
+        assertEquals(carPlateNumber, parkCarPlateNumber);
+        assertEquals(0, parkingLotA.getCarList().size());
     }
 }
