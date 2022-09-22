@@ -2,16 +2,26 @@ package com.example.AEPB;
 
 import com.example.AEPB.exception.ParkingException;
 import com.example.AEPB.exception.PickUpException;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class ParkingLot {
 
     private static final int MAX_PARKING_LOT_CAPACITY = 100;
 
     private final List<Car> carList = new ArrayList<>();
+
+    private String ParkingLotNo = "A";
+
+    private int serialNumber;
 
     public Ticket parking(Car car) {
         car.checkCarPlateNumberValid();
@@ -44,5 +54,7 @@ public class ParkingLot {
                 .contains(carPlateNumber);
     }
 
-
+    public boolean isNotFull() {
+        return carList.size() < MAX_PARKING_LOT_CAPACITY;
+    }
 }

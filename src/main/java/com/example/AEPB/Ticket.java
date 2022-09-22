@@ -9,5 +9,10 @@ public class Ticket {
 
     private String carPlateNumber;
 
-//    private String parkingLotNo;
+    private String parkingLotNo;
+
+
+    public Ticket(String carPlateNumber) {
+        this.carPlateNumber = carPlateNumber;
+    }
 }
