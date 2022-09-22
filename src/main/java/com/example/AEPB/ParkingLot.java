@@ -26,11 +26,15 @@ public class ParkingLot {
     public Ticket parking(Car car) {
         car.checkCarPlateNumberValid();
         checkParkingLotIsFull();
-        if (isCarExist(car.getCarPlateNumber())) {
-            throw new ParkingException("car plate number is duplicated");
-        }
+        checkCarIfExist(car.getCarPlateNumber());
         carList.add(car);
         return new Ticket(car.getCarPlateNumber());
+    }
+
+    public void checkCarIfExist(String carPlateNumber) {
+        if (isCarExist(carPlateNumber)) {
+            throw new ParkingException("car plate number is duplicated");
+        }
     }
 
     public String pickUp(Ticket ticket) {
@@ -47,7 +51,7 @@ public class ParkingLot {
         }
     }
 
-    private boolean isCarExist(String carPlateNumber) {
+    public boolean isCarExist(String carPlateNumber) {
         return carList.stream()
                 .map(Car::getCarPlateNumber)
                 .collect(Collectors.toList())

@@ -11,6 +11,7 @@ public class Boy {
     private final List<ParkingLot> parkingLots;
 
     public Ticket parking(Car car) {
+        checkCarIfExist(car);
         ParkingLot parkingLot = findParkingLot();
         parkingLot.parking(car);
         return new Ticket(car.getCarPlateNumber(), parkingLot.getParkingLotNo());
@@ -23,5 +24,9 @@ public class Boy {
             }
         }
         throw new ParkingException("parking lot is full");
+    }
+
+    public void checkCarIfExist(Car car) {
+        parkingLots.forEach(parkingLot -> parkingLot.checkCarIfExist(car.getCarPlateNumber()));
     }
 }
