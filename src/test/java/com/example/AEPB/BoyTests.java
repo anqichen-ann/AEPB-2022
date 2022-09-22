@@ -197,4 +197,26 @@ class BoyTests {
         //then
         assertEquals("parking lot is not found", pickUpException.getMessage());
     }
+
+    @Test
+    void should_pick_up_failed_when_pick_up_car_given_car_already_pick_up() {
+        //given
+        ParkingLot parkingLotA = new ParkingLot("A", 1);
+        ParkingLot parkingLotB = new ParkingLot("B", 2);
+        ParkingLot parkingLotC = new ParkingLot("C", 3);
+        String carPlateNumber = "京A12345";
+        List<ParkingLot> parkingLots = Stream.of(parkingLotA, parkingLotB, parkingLotC)
+                .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
+                .collect(Collectors.toList());
+        Boy boy = new Boy(parkingLots);
+        Car car = new Car(carPlateNumber);
+        Ticket ticket = boy.parking(car);
+        boy.pickUp(ticket);
+
+        //when
+        PickUpException pickUpException = assertThrows(PickUpException.class, () -> boy.pickUp(ticket));
+
+        //then
+        assertEquals("vehicle is not found", pickUpException.getMessage());
+    }
 }
