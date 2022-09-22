@@ -11,7 +11,7 @@ public class ParkingLot {
 
     private static final int MAX_PARKING_LOT_CAPACITY = 100;
 
-    public final List<Car> parkingLot = new ArrayList<>();
+    public final List<Car> carList = new ArrayList<>();
 
     public Ticket parking(Car car) {
         car.checkCarPlateNumberValid();
@@ -19,7 +19,7 @@ public class ParkingLot {
         if (isCarExist(car.getCarPlateNumber())) {
             throw new ParkingException("car plate number is duplicated");
         }
-        parkingLot.add(car);
+        carList.add(car);
         return new Ticket(car.getCarPlateNumber());
     }
 
@@ -27,18 +27,18 @@ public class ParkingLot {
         if (!isCarExist(ticket.getCarPlateNumber())) {
             throw new PickUpException("vehicle is not found");
         }
-        parkingLot.removeIf(car -> ticket.getCarPlateNumber().equals(car.getCarPlateNumber()));
+        carList.removeIf(car -> ticket.getCarPlateNumber().equals(car.getCarPlateNumber()));
         return ticket.getCarPlateNumber();
     }
 
     private void checkParkingLotIsFull() {
-        if (parkingLot.size() >= MAX_PARKING_LOT_CAPACITY) {
+        if (carList.size() >= MAX_PARKING_LOT_CAPACITY) {
             throw new ParkingException("parking lot is full");
         }
     }
 
     private boolean isCarExist(String carPlateNumber) {
-        return parkingLot.stream()
+        return carList.stream()
                 .map(Car::getCarPlateNumber)
                 .collect(Collectors.toList())
                 .contains(carPlateNumber);
