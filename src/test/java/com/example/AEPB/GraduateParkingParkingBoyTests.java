@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class BoyTests {
+class GraduateParkingParkingBoyTests {
 
     @Test
     void should_parking_in_A_and_get_ticket_when_parking_given_A_is_not_full() {
@@ -27,10 +27,10 @@ class BoyTests {
                 .collect(Collectors.toList());
         String carPlateNumber = "京A12345";
         Car car = new Car(carPlateNumber);
-        Boy boy = new Boy(parkingLots);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         //when
-        Ticket ticket = boy.parking(car);
+        Ticket ticket = graduateParkingBoy.parking(car);
 
         //then
         assertEquals(carPlateNumber, ticket.getCarPlateNumber());
@@ -52,11 +52,11 @@ class BoyTests {
             parkingLotA.parking(new Car(carPlateNumber + i));
         }
         Car car = new Car(carPlateNumber);
-        Boy boy = new Boy(parkingLots);
-        boy.pickUp(new Ticket("京A123451", "A"));
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        graduateParkingBoy.pickUp(new Ticket("京A123451", "A"));
 
         //when
-        Ticket ticket = boy.parking(car);
+        Ticket ticket = graduateParkingBoy.parking(car);
 
         //then
         assertEquals(carPlateNumber, ticket.getCarPlateNumber());
@@ -78,10 +78,10 @@ class BoyTests {
                 .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
                 .collect(Collectors.toList());
         Car car = new Car("京B12345");
-        Boy boy = new Boy(parkingLots);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         //when
-        Ticket ticket = boy.parking(car);
+        Ticket ticket = graduateParkingBoy.parking(car);
 
         //then
         assertEquals("京B12345", ticket.getCarPlateNumber());
@@ -104,10 +104,10 @@ class BoyTests {
                 .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
                 .collect(Collectors.toList());
         Car car = new Car("京C12345");
-        Boy boy = new Boy(parkingLots);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         //when
-        Ticket ticket = boy.parking(car);
+        Ticket ticket = graduateParkingBoy.parking(car);
 
         //then
         assertEquals("京C12345", ticket.getCarPlateNumber());
@@ -132,10 +132,10 @@ class BoyTests {
                 .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
                 .collect(Collectors.toList());
         Car car = new Car("京C12345");
-        Boy boy = new Boy(parkingLots);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         //when
-        ParkingException parkingException = assertThrows(ParkingException.class, () -> boy.parking(car));
+        ParkingException parkingException = assertThrows(ParkingException.class, () -> graduateParkingBoy.parking(car));
 
         //then
         assertEquals("parking lot is full", parkingException.getMessage());
@@ -153,10 +153,10 @@ class BoyTests {
         List<ParkingLot> parkingLots = Stream.of(parkingLotA, parkingLotB, parkingLotC)
                 .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
                 .collect(Collectors.toList());
-        Boy boy = new Boy(parkingLots);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         //when
-        ParkingException parkingException = assertThrows(ParkingException.class, () -> boy.parking(car));
+        ParkingException parkingException = assertThrows(ParkingException.class, () -> graduateParkingBoy.parking(car));
 
         //then
         assertEquals("car plate number is duplicated", parkingException.getMessage());
@@ -173,10 +173,10 @@ class BoyTests {
         List<ParkingLot> parkingLots = Stream.of(parkingLotA, parkingLotB, parkingLotC)
                 .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
                 .collect(Collectors.toList());
-        Boy boy = new Boy(parkingLots);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         //when
-        ParkingException parkingException = assertThrows(ParkingException.class, () -> boy.parking(car));
+        ParkingException parkingException = assertThrows(ParkingException.class, () -> graduateParkingBoy.parking(car));
 
         //then
         assertEquals("vehicle has not car plate number", parkingException.getMessage());
@@ -193,11 +193,11 @@ class BoyTests {
         List<ParkingLot> parkingLots = Stream.of(parkingLotA, parkingLotB, parkingLotC)
                 .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
                 .collect(Collectors.toList());
-        Boy boy = new Boy(parkingLots);
-        Ticket ticket = boy.parking(car);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        Ticket ticket = graduateParkingBoy.parking(car);
 
         //when
-        String parkCarPlateNumber = boy.pickUp(ticket);
+        String parkCarPlateNumber = graduateParkingBoy.pickUp(ticket);
 
         //then
         assertEquals(carPlateNumber, parkCarPlateNumber);
@@ -214,11 +214,11 @@ class BoyTests {
         List<ParkingLot> parkingLots = Stream.of(parkingLotA, parkingLotB, parkingLotC)
                 .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
                 .collect(Collectors.toList());
-        Boy boy = new Boy(parkingLots);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
         Ticket ticket = new Ticket(carPlateNumber, "wrongParkingLotNo");
 
         //when
-        PickUpException pickUpException = assertThrows(PickUpException.class, () -> boy.pickUp(ticket));
+        PickUpException pickUpException = assertThrows(PickUpException.class, () -> graduateParkingBoy.pickUp(ticket));
 
         //then
         assertEquals("parking lot is not found", pickUpException.getMessage());
@@ -234,13 +234,13 @@ class BoyTests {
         List<ParkingLot> parkingLots = Stream.of(parkingLotA, parkingLotB, parkingLotC)
                 .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
                 .collect(Collectors.toList());
-        Boy boy = new Boy(parkingLots);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
         Car car = new Car(carPlateNumber);
-        Ticket ticket = boy.parking(car);
-        boy.pickUp(ticket);
+        Ticket ticket = graduateParkingBoy.parking(car);
+        graduateParkingBoy.pickUp(ticket);
 
         //when
-        PickUpException pickUpException = assertThrows(PickUpException.class, () -> boy.pickUp(ticket));
+        PickUpException pickUpException = assertThrows(PickUpException.class, () -> graduateParkingBoy.pickUp(ticket));
 
         //then
         assertEquals("vehicle is not found", pickUpException.getMessage());

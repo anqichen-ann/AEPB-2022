@@ -3,13 +3,15 @@ package com.example.AEPB;
 import com.example.AEPB.exception.ParkingException;
 import com.example.AEPB.exception.PickUpException;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @AllArgsConstructor
-public class Boy {
+@NoArgsConstructor
+public class GraduateParkingBoy {
 
-    private final List<ParkingLot> parkingLots;
+    private List<ParkingLot> parkingLots;
 
     public Ticket parking(Car car) {
         checkCarIfExist(car);
