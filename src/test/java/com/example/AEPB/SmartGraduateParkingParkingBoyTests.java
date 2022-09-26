@@ -1,11 +1,13 @@
 package com.example.AEPB;
 
+import com.example.AEPB.exception.ParkingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class SmartGraduateParkingParkingBoyTests {
 
@@ -55,23 +57,23 @@ class SmartGraduateParkingParkingBoyTests {
     }
 
     @Test
-    void should_parking_in_C_and_get_ticket_when_parking_given_parking_space_A_with_97_and_B_with_98_and_C_with_99() {
+    void should_parking_failed_when_parking_given_parking_lot_A_and_B_and_C_all_full() {
         //given
         Car car = new Car(CAR_PLATE_NUMBER);
-        String carPlateNumber = "京C12345";
-        parkingLotA.parking(car);
-        parkingLotA.parking(new Car("京A123451"));
-        parkingLotA.parking(new Car("京A123441"));
-        parkingLotB.parking(new Car("京A123452"));
-        parkingLotB.parking(new Car("京A123453"));
-        parkingLotC.parking(new Car("京A123454"));
+        String carPlateNumberA = "京A12345";
+        String carPlateNumberB = "京B12345";
+        String carPlateNumberC = "京C12345";
+        for (int i = 1; i < 101; i++) {
+            parkingLotA.parking(new Car(carPlateNumberA + i));
+            parkingLotB.parking(new Car(carPlateNumberB + i));
+            parkingLotC.parking(new Car(carPlateNumberC + i));
+        }
 
         //when
-        Ticket ticket = smartBoy.parking(new Car(carPlateNumber));
+        ParkingException parkingException = assertThrows(ParkingException.class, () -> smartBoy.parking(car));
 
         //then
-        assertEquals(carPlateNumber, ticket.getCarPlateNumber());
-        assertEquals("C", ticket.getParkingLotNo());
+        assertEquals("parking lot is full", parkingException.getMessage());
     }
 
 
