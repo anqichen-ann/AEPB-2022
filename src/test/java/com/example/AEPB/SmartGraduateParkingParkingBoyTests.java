@@ -40,18 +40,38 @@ class SmartGraduateParkingParkingBoyTests {
     void should_parking_in_B_and_get_ticket_when_parking_given_parking_space_A_with_98_and_B_with_99_and_C_with_99() {
         //given
         Car car = new Car(CAR_PLATE_NUMBER);
-        String carPlateNumberA = "京C12345";
+        String carPlateNumber = "京C12345";
         parkingLotA.parking(car);
         parkingLotA.parking(new Car("京A123451"));
         parkingLotB.parking(new Car("京A123452"));
         parkingLotC.parking(new Car("京A123453"));
 
         //when
-        Ticket ticket = smartBoy.parking(new Car(carPlateNumberA));
+        Ticket ticket = smartBoy.parking(new Car(carPlateNumber));
 
         //then
-        assertEquals(carPlateNumberA, ticket.getCarPlateNumber());
+        assertEquals(carPlateNumber, ticket.getCarPlateNumber());
         assertEquals("B", ticket.getParkingLotNo());
+    }
+
+    @Test
+    void should_parking_in_C_and_get_ticket_when_parking_given_parking_space_A_with_97_and_B_with_98_and_C_with_99() {
+        //given
+        Car car = new Car(CAR_PLATE_NUMBER);
+        String carPlateNumber = "京C12345";
+        parkingLotA.parking(car);
+        parkingLotA.parking(new Car("京A123451"));
+        parkingLotA.parking(new Car("京A123441"));
+        parkingLotB.parking(new Car("京A123452"));
+        parkingLotB.parking(new Car("京A123453"));
+        parkingLotC.parking(new Car("京A123454"));
+
+        //when
+        Ticket ticket = smartBoy.parking(new Car(carPlateNumber));
+
+        //then
+        assertEquals(carPlateNumber, ticket.getCarPlateNumber());
+        assertEquals("C", ticket.getParkingLotNo());
     }
 
 
