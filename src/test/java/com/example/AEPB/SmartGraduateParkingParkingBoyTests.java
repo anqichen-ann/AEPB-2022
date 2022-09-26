@@ -91,5 +91,18 @@ class SmartGraduateParkingParkingBoyTests {
         assertEquals("vehicle has not car plate number", parkingException.getMessage());
     }
 
+    @Test
+    void should_parking_failed_when_parking_given_parking_lot_is_not_full_and_car_plate_number_is_exist_in_B() {
+        //given
+        Car car = new Car(CAR_PLATE_NUMBER);
+        parkingLotB.parking(car);
+
+        //when
+        ParkingException parkingException = assertThrows(ParkingException.class, () -> smartBoy.parking(car));
+
+        //then
+        assertEquals("car plate number is duplicated", parkingException.getMessage());
+    }
+
 
 }
