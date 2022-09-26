@@ -1,5 +1,8 @@
 package com.example.AEPB;
 
 public interface ParkingBoy {
-//    private
+
+    Ticket parking(Car car);
+
+    String pickUp(Ticket ticket);
 }

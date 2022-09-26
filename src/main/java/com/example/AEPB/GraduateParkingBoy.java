@@ -9,7 +9,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class GraduateParkingBoy {
+public class GraduateParkingBoy implements ParkingBoy{
 
     private List<ParkingLot> parkingLots;
 
