@@ -61,4 +61,8 @@ public class ParkingLot {
     public boolean isNotFull() {
         return carList.size() < MAX_PARKING_LOT_CAPACITY;
     }
+
+    public int getCarNumber() {
+        return carList.size();
+    }
 }

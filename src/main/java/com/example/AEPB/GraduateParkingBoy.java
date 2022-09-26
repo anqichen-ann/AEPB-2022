@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class GraduateParkingBoy implements ParkingBoy{
 
-    private List<ParkingLot> parkingLots;
+    List<ParkingLot> parkingLots;
 
     public GraduateParkingBoy(List<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots.stream()
