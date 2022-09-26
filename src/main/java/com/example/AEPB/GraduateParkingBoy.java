@@ -2,16 +2,22 @@ package com.example.AEPB;
 
 import com.example.AEPB.exception.ParkingException;
 import com.example.AEPB.exception.PickUpException;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@AllArgsConstructor
 @NoArgsConstructor
 public class GraduateParkingBoy implements ParkingBoy{
 
     private List<ParkingLot> parkingLots;
+
+    public GraduateParkingBoy(List<ParkingLot> parkingLots) {
+        this.parkingLots = parkingLots.stream()
+                .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
+                .collect(Collectors.toList());
+    }
 
     public Ticket parking(Car car) {
         checkCarIfExist(car);

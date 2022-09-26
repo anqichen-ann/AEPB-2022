@@ -3,10 +3,7 @@ package com.example.AEPB;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,10 +16,7 @@ class SmartGraduateParkingParkingBoyTests {
         ParkingLot parkingLotA = new ParkingLot("A", 1);
         ParkingLot parkingLotB = new ParkingLot("B", 2);
         ParkingLot parkingLotC = new ParkingLot("C", 3);
-        List<ParkingLot> parkingLots = Stream.of(parkingLotA, parkingLotB, parkingLotC)
-                .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
-                .collect(Collectors.toList());
-        smartBoy = new SmartGraduateParkingBoy(parkingLots);
+        smartBoy = new SmartGraduateParkingBoy(List.of(parkingLotA, parkingLotB, parkingLotC));
     }
 
     @Test
