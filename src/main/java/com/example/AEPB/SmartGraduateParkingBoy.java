@@ -16,7 +16,6 @@ public class SmartGraduateParkingBoy extends GraduateParkingBoy {
     public Ticket parking(Car car) {
         checkCarIfExist(car);
         ParkingLot parkingLot = findMaxCapacityParkingLot().orElseThrow(() -> new ParkingException("parking lot is full"));
-        System.out.println("parking lot:" + parkingLot.getParkingLotNo());
         parkingLot.parking(car);
         return new Ticket(car.getCarPlateNumber(), parkingLot.getParkingLotNo());
     }

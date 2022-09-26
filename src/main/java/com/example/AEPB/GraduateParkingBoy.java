@@ -27,12 +27,10 @@ public class GraduateParkingBoy implements ParkingBoy{
     }
 
     private ParkingLot findParkingLot() {
-        for (ParkingLot parkingLot : parkingLots) {
-            if (parkingLot.isNotFull()) {
-                return parkingLot;
-            }
-        }
-        throw new ParkingException("parking lot is full");
+        return parkingLots.stream()
+                .filter(ParkingLot::isNotFull)
+                .findFirst()
+                .orElseThrow(() -> new ParkingException("parking lot is full"));
     }
 
     public void checkCarIfExist(Car car) {
@@ -40,11 +38,8 @@ public class GraduateParkingBoy implements ParkingBoy{
     }
 
     public String pickUp(Ticket ticket) {
-        for (ParkingLot parkingLot : parkingLots) {
-            if (ticket.getParkingLotNo().equals(parkingLot.getParkingLotNo())) {
-                return parkingLot.pickUp(ticket);
-            }
-        }
-        throw new PickUpException("parking lot is not found");
+        ParkingLot foundParkingLot = parkingLots.stream().filter(parkingLot -> ticket.getParkingLotNo().equals(parkingLot.getParkingLotNo()))
+                .findFirst().orElseThrow(() -> new PickUpException("parking lot is not found"));
+        return foundParkingLot.pickUp(ticket);
     }
 }
