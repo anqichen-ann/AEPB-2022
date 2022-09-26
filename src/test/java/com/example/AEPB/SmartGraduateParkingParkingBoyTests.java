@@ -104,5 +104,19 @@ class SmartGraduateParkingParkingBoyTests {
         assertEquals("car plate number is duplicated", parkingException.getMessage());
     }
 
+    @Test
+    void should_leave_success_when_pick_up_car_given_valid_ticket() {
+        //given
+        Car car = new Car(CAR_PLATE_NUMBER);
+        Ticket ticket = smartBoy.parking(car);
+
+        //when
+        String parkCarPlateNumber = smartBoy.pickUp(ticket);
+
+        //then
+        assertEquals(CAR_PLATE_NUMBER, parkCarPlateNumber);
+        assertEquals(0, parkingLotA.getCarList().size());
+    }
+
 
 }
