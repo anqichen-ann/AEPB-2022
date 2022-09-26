@@ -3,6 +3,8 @@ package com.example.AEPB;
 import com.example.AEPB.exception.ParkingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 
 import java.util.List;
 
@@ -74,6 +76,19 @@ class SmartGraduateParkingParkingBoyTests {
 
         //then
         assertEquals("parking lot is full", parkingException.getMessage());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void should_parking_failed_when_parking_given_parking_lot_is_not_full_and_car_plate_number_is_empty(String carPlateNumber) {
+        //given
+        Car car = new Car(carPlateNumber);
+
+        //when
+        ParkingException parkingException = assertThrows(ParkingException.class, () -> smartBoy.parking(car));
+
+        //then
+        assertEquals("vehicle has not car plate number", parkingException.getMessage());
     }
 
 
