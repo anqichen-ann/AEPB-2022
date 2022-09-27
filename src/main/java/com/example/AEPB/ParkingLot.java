@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Getter
 public class ParkingLot {
 
-    private static final int MAX_PARKING_LOT_CAPACITY = 100;
+    private  int parkingLotCapacity;
 
     private final List<Car> carList = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class ParkingLot {
     }
 
     private void checkParkingLotIsFull() {
-        if (carList.size() >= MAX_PARKING_LOT_CAPACITY) {
+        if (carList.size() >= parkingLotCapacity) {
             throw new ParkingException("parking lot is full");
         }
     }
@@ -61,7 +61,7 @@ public class ParkingLot {
     }
 
     public boolean isNotFull() {
-        return carList.size() < MAX_PARKING_LOT_CAPACITY;
+        return carList.size() < parkingLotCapacity;
     }
 
     public int getCarNumber() {
@@ -69,6 +69,6 @@ public class ParkingLot {
     }
 
     public BigDecimal getOccupancyRate() {
-        return BigDecimal.valueOf(carList.size()).divide(BigDecimal.valueOf(MAX_PARKING_LOT_CAPACITY), 2, RoundingMode.HALF_UP);
+        return BigDecimal.valueOf(carList.size()).divide(BigDecimal.valueOf(parkingLotCapacity), 2, RoundingMode.HALF_UP);
     }
 }

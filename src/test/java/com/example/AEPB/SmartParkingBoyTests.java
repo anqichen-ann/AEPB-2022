@@ -22,9 +22,9 @@ class SmartParkingBoyTests {
 
     @BeforeEach
     void setUp() {
-        parkingLotA = new ParkingLot("A", 1);
-        parkingLotB = new ParkingLot("B", 2);
-        parkingLotC = new ParkingLot("C", 3);
+        parkingLotA = new ParkingLot(100, "A", 1);
+        parkingLotB = new ParkingLot(100, "B", 2);
+        parkingLotC = new ParkingLot(100, "C", 3);
         smartBoy = new SmartParkingBoy(List.of(parkingLotA, parkingLotB, parkingLotC));
     }
 
