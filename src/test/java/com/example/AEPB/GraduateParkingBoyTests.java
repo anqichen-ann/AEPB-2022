@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class GraduateParkingParkingBoyTests {
+class GraduateParkingBoyTests {
 
     private GraduateParkingBoy graduateParkingBoy;
     private ParkingLot parkingLotA;
@@ -31,7 +31,7 @@ class GraduateParkingParkingBoyTests {
         List<ParkingLot> parkingLots = Stream.of(parkingLotA, parkingLotB, parkingLotC)
                 .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
                 .collect(Collectors.toList());
-        graduateParkingBoy = new SmartParkingBoy(parkingLots);
+        graduateParkingBoy = new GraduateParkingBoy(parkingLots);
     }
 
     @Test
