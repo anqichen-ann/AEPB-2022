@@ -12,9 +12,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class SmartGraduateParkingParkingBoyTests {
+class ParkingRobotTests {
 
-    private SmartParkingBoy smartBoy;
+    private ParkingRobot parkingRobot;
     private ParkingLot parkingLotA;
     private ParkingLot parkingLotB;
     private ParkingLot parkingLotC;
@@ -25,7 +25,7 @@ class SmartGraduateParkingParkingBoyTests {
         parkingLotA = new ParkingLot("A", 1);
         parkingLotB = new ParkingLot("B", 2);
         parkingLotC = new ParkingLot("C", 3);
-        smartBoy = new SmartParkingBoy(List.of(parkingLotA, parkingLotB, parkingLotC));
+        parkingRobot = new ParkingRobot(List.of(parkingLotA, parkingLotB, parkingLotC));
     }
 
     @Test
@@ -34,7 +34,7 @@ class SmartGraduateParkingParkingBoyTests {
         Car car = new Car(CAR_PLATE_NUMBER);
 
         //when
-        Ticket ticket = smartBoy.parking(car);
+        Ticket ticket = parkingRobot.parking(car);
 
         //then
         assertEquals(CAR_PLATE_NUMBER, ticket.getCarPlateNumber());
@@ -42,7 +42,7 @@ class SmartGraduateParkingParkingBoyTests {
     }
 
     @Test
-    void should_parking_in_B_and_get_ticket_when_parking_given_parking_space_A_with_98_and_B_with_99_and_C_with_99() {
+    void should_parking_in_B_and_get_ticket_when_parking_given_parking_space_A_with_98_percent_and_B_with_99_percent_and_C_with_99_percent() {
         //given
         Car car = new Car(CAR_PLATE_NUMBER);
         String carPlateNumber = "京C12345";
@@ -52,7 +52,7 @@ class SmartGraduateParkingParkingBoyTests {
         parkingLotC.parking(new Car("京A123453"));
 
         //when
-        Ticket ticket = smartBoy.parking(new Car(carPlateNumber));
+        Ticket ticket = parkingRobot.parking(new Car(carPlateNumber));
 
         //then
         assertEquals(carPlateNumber, ticket.getCarPlateNumber());
@@ -73,7 +73,7 @@ class SmartGraduateParkingParkingBoyTests {
         }
 
         //when
-        ParkingException parkingException = assertThrows(ParkingException.class, () -> smartBoy.parking(car));
+        ParkingException parkingException = assertThrows(ParkingException.class, () -> parkingRobot.parking(car));
 
         //then
         assertEquals("parking lot is full", parkingException.getMessage());
@@ -86,7 +86,7 @@ class SmartGraduateParkingParkingBoyTests {
         Car car = new Car(carPlateNumber);
 
         //when
-        ParkingException parkingException = assertThrows(ParkingException.class, () -> smartBoy.parking(car));
+        ParkingException parkingException = assertThrows(ParkingException.class, () -> parkingRobot.parking(car));
 
         //then
         assertEquals("vehicle has not car plate number", parkingException.getMessage());
@@ -99,36 +99,10 @@ class SmartGraduateParkingParkingBoyTests {
         parkingLotB.parking(car);
 
         //when
-        ParkingException parkingException = assertThrows(ParkingException.class, () -> smartBoy.parking(car));
+        ParkingException parkingException = assertThrows(ParkingException.class, () -> parkingRobot.parking(car));
 
         //then
         assertEquals("car plate number is duplicated", parkingException.getMessage());
-    }
-
-    @Test
-    void should_leave_success_when_pick_up_car_given_valid_ticket() {
-        //given
-        Car car = new Car(CAR_PLATE_NUMBER);
-        Ticket ticket = smartBoy.parking(car);
-
-        //when
-        String parkCarPlateNumber = smartBoy.pickUp(ticket);
-
-        //then
-        assertEquals(CAR_PLATE_NUMBER, parkCarPlateNumber);
-        assertEquals(0, parkingLotA.getCarList().size());
-    }
-
-    @Test
-    void should_pick_up_failed_when_pick_up_car_given_invalid_ticket_with_not_exist_car_plate_number() {
-        //given
-        Ticket ticket = new Ticket("wrongCarPlateNumber", "A");
-
-        //when
-        PickUpException pickUpException = assertThrows(PickUpException.class, () -> smartBoy.pickUp(ticket));
-
-        //then
-        assertEquals("vehicle is not found", pickUpException.getMessage());
     }
 
 

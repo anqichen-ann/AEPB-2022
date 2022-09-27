@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,5 +66,9 @@ public class ParkingLot {
 
     public int getCarNumber() {
         return carList.size();
+    }
+
+    public BigDecimal getOccupancyRate() {
+        return BigDecimal.valueOf(carList.size()).divide(BigDecimal.valueOf(MAX_PARKING_LOT_CAPACITY), 2, RoundingMode.HALF_UP);
     }
 }
