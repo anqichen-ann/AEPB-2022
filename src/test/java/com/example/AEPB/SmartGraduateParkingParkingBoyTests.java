@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class SmartGraduateParkingParkingBoyTests {
 
-    private SmartGraduateParkingBoy smartBoy;
+    private SmartParkingBoy smartBoy;
     private ParkingLot parkingLotA;
     private ParkingLot parkingLotB;
     private ParkingLot parkingLotC;
@@ -25,7 +25,7 @@ class SmartGraduateParkingParkingBoyTests {
         parkingLotA = new ParkingLot("A", 1);
         parkingLotB = new ParkingLot("B", 2);
         parkingLotC = new ParkingLot("C", 3);
-        smartBoy = new SmartGraduateParkingBoy(List.of(parkingLotA, parkingLotB, parkingLotC));
+        smartBoy = new SmartParkingBoy(List.of(parkingLotA, parkingLotB, parkingLotC));
     }
 
     @Test

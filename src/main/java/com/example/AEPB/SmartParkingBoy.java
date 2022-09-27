@@ -6,9 +6,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-public class SmartGraduateParkingBoy extends GraduateParkingBoy {
+public class SmartParkingBoy extends GraduateParkingBoy {
 
-    public SmartGraduateParkingBoy(List<ParkingLot> parkingLots) {
+    public SmartParkingBoy(List<ParkingLot> parkingLots) {
         super(parkingLots);
     }
 

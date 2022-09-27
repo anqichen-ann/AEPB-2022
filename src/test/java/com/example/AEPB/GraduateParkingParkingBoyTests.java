@@ -31,7 +31,7 @@ class GraduateParkingParkingBoyTests {
         List<ParkingLot> parkingLots = Stream.of(parkingLotA, parkingLotB, parkingLotC)
                 .sorted(Comparator.comparing(ParkingLot::getSerialNumber))
                 .collect(Collectors.toList());
-        graduateParkingBoy = new SmartGraduateParkingBoy(parkingLots);
+        graduateParkingBoy = new SmartParkingBoy(parkingLots);
     }
 
     @Test
