@@ -10,7 +10,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ParkingRobot {
 
-    List<ParkingLot> parkingLots;
+    private List<ParkingLot> parkingLots;
 
     public Ticket parking(Car car) {
         checkCarIfExist(car);

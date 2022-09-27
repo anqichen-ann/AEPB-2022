@@ -10,7 +10,8 @@ import java.util.Optional;
 
 @AllArgsConstructor
 public class SmartParkingBoy implements ParkingBoy {
-    List<ParkingLot> parkingLots;
+
+    private List<ParkingLot> parkingLots;
 
     @Override
     public Ticket parking(Car car) {
